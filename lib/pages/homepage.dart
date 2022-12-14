@@ -63,8 +63,8 @@ class _HomePageState extends State<HomePage> {
         if(point > 0)Text('Your Point: $point', style: const TextStyle(fontSize: 25),),
         if(status != null) Text('You $status', style: const TextStyle(fontSize: 25),),
 
-        if(isGameRunning) ElevatedButton(onPressed: rollTheDice, child: Text('Roll')),
-        if(!isGameRunning) ElevatedButton(onPressed: _reset, child: Text('RESET')),
+        if(isGameRunning) ElevatedButton(onPressed: rollTheDice, child: const Text('Roll')),
+        if(!isGameRunning) ElevatedButton(onPressed: _reset, child: const Text('RESET')),
       ],
     );
   }
