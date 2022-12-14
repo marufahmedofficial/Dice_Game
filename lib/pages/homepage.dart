@@ -115,3 +115,11 @@ class _HomePageState extends State<HomePage> {
     if(status != null) isGameRunning = false;
   }
 }
+final diceList=[
+  'images/d1.png',
+  'images/d2.png',
+  'images/d3.png',
+  'images/d4.png',
+  'images/d5.png',
+  'images/d6.png',
+];
