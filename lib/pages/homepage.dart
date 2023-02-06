@@ -1,6 +1,9 @@
+import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,24 +31,62 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Column startBody() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const FlutterLogo(size: 100,),
-        const Text('Welcome to Dice Game', style: TextStyle(fontSize: 25),),
-        ElevatedButton(
-          onPressed: () {
-            setState(() {
-              hasGameStarted = true;
-              isGameRunning = true;
-            });
+  WillPopScope startBody() {
+    return WillPopScope(
+      onWillPop: () async {
+        final shouldPop = await showCupertinoModalPopup<bool>(
+          context: context,
+          builder: (context) {
+            return CupertinoActionSheet(
+              title: Text('Do you really want to Exit?',
+                  style: TextStyle(fontSize: 18,color: CupertinoColors.black)),
+              // message: Text('It\'s a demo for cupertino action sheet.'),
+              actions: [
+                CupertinoActionSheetAction(
+                    onPressed: () {
+                      if (Platform.isAndroid) {
+                        SystemNavigator.pop();
+                      } else if (Platform.isIOS) {
+                        exit(0);
+                      }
+                    },
+                    child: Text('OK', style: TextStyle(fontSize: 18,
+                        color: Colors.red.shade700)))
+              ],
+              cancelButton: CupertinoActionSheetAction(
+                  onPressed: () {
+                    finish(context);
+                  },
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(color: CupertinoColors.black, fontSize: 18),
+                  )),
+
+            );
+
           },
-          child: const Text('START'),
-        )
-      ],
+        );
+        return shouldPop!;
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const FlutterLogo(size: 100,),
+          const Text('Welcome to Dice Game', style: TextStyle(fontSize: 25),),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                hasGameStarted = true;
+                isGameRunning = true;
+              });
+            },
+            child: const Text('START'),
+          )
+        ],
+      ),
     );
   }
+
 
   Column gameBody() {
     return Column(
@@ -123,3 +164,7 @@ final diceList=[
   'images/d5.png',
   'images/d6.png',
 ];
+
+void finish(BuildContext context, [Object? result]) {
+  if (Navigator.canPop(context)) Navigator.pop(context, result);
+}
