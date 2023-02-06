@@ -25,10 +25,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dice Game', style: TextStyle(
-          color: Colors.pink,fontWeight: FontWeight.bold,fontSize: 22
-        ),),
-      centerTitle: true,
+        title: const Text(
+          'Dice Game',
+          style: TextStyle(
+              color: Colors.pink, fontWeight: FontWeight.bold, fontSize: 22),
+        ),
+        centerTitle: true,
         backgroundColor: Colors.white,
       ),
       body: Center(
@@ -45,7 +47,7 @@ class _HomePageState extends State<HomePage> {
           builder: (context) {
             return CupertinoActionSheet(
               title: Text('Do you really want to Exit?',
-                  style: TextStyle(fontSize: 18,color: CupertinoColors.black)),
+                  style: TextStyle(fontSize: 18, color: CupertinoColors.black)),
               // message: Text('It\'s a demo for cupertino action sheet.'),
               actions: [
                 CupertinoActionSheetAction(
@@ -56,8 +58,9 @@ class _HomePageState extends State<HomePage> {
                         exit(0);
                       }
                     },
-                    child: Text('OK', style: TextStyle(fontSize: 18,
-                        color: Colors.red.shade700)))
+                    child: Text('OK',
+                        style: TextStyle(
+                            fontSize: 18, color: Colors.red.shade700)))
               ],
               cancelButton: CupertinoActionSheetAction(
                   onPressed: () {
@@ -65,11 +68,10 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: const Text(
                     'Cancel',
-                    style: TextStyle(color: CupertinoColors.black, fontSize: 18),
+                    style:
+                        TextStyle(color: CupertinoColors.black, fontSize: 18),
                   )),
-
             );
-
           },
         );
         return shouldPop!;
@@ -77,8 +79,22 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-           Image(image: AssetImage('images/dice_logo.png',)),
-           Text('Welcome to Dice Game', style: TextStyle(fontSize: 25),),
+          Image(
+              image: AssetImage(
+                'images/dice_logo.jpg',
+              ),
+              height: 200,
+              width: 200 ),
+          SizedBox(
+            height: 30,
+          ),
+          Text(
+            'Welcome to Dice Game',
+            style: TextStyle(fontSize: 25,fontWeight: FontWeight.w500),
+          ),
+          SizedBox(
+            height: 70,
+          ),
           ElevatedButton(
             onPressed: () {
               setState(() {
@@ -93,32 +109,54 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
   Column gameBody() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        if(showDice) Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(diceList[index1],height: 100,width: 100,),
-            const SizedBox(width: 10,),
-            Image.asset(diceList[index2],height: 100,width: 100,),
-          ],
+        if (showDice)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                diceList[index1],
+                height: 100,
+                width: 100,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Image.asset(
+                diceList[index2],
+                height: 100,
+                width: 100,
+              ),
+            ],
+          ),
+        Text(
+          'Dice Sum: $sum',
+          style: const TextStyle(fontSize: 20,color: Colors.deepPurple),
         ),
-        Text('Dice Sum: $sum', style: const TextStyle(fontSize: 20),),
-        if(point > 0)Text('Your Point: $point', style: const TextStyle(fontSize: 25),),
-        if(status != null) Text('You $status', style: const TextStyle(fontSize: 25),),
-
-        if(isGameRunning) ElevatedButton(onPressed: rollTheDice, child: const Text('Roll')),
-        if(!isGameRunning) ElevatedButton(onPressed: _reset, child: const Text('RESET')),
+        if (point > 0)
+          Text(
+            'Your Point: $point',
+            style: const TextStyle(fontSize: 25,color:Colors.green),
+          ),
+        if (status != null)
+          Text(
+            'You $status',
+            style: const TextStyle(fontSize: 25),
+          ),
+        if (isGameRunning)
+          ElevatedButton(onPressed: rollTheDice, child: const Text('Roll')),
+        if (!isGameRunning)
+          ElevatedButton(onPressed: _reset, child: const Text('RESET')),
       ],
     );
   }
 
   void rollTheDice() {
     setState(() {
-      if(!showDice) {
+      if (!showDice) {
         showDice = true;
       }
       index1 = random.nextInt(6);
@@ -140,11 +178,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _checkResult() {
-    if(point == 0) {
-      if(sum == 7 || sum == 11) {
+    if (point == 0) {
+      if (sum == 7 || sum == 11) {
         status = 'Won';
         //isGameRunning = false;
-      } else if(sum == 2 || sum == 3 || sum == 12) {
+      } else if (sum == 2 || sum == 3 || sum == 12) {
         status = 'Lost';
         //isGameRunning = false;
       } else {
@@ -159,10 +197,11 @@ class _HomePageState extends State<HomePage> {
         //isGameRunning = false;
       }
     }
-    if(status != null) isGameRunning = false;
+    if (status != null) isGameRunning = false;
   }
 }
-final diceList=[
+
+final diceList = [
   'images/d1.png',
   'images/d2.png',
   'images/d3.png',
@@ -170,6 +209,7 @@ final diceList=[
   'images/d5.png',
   'images/d6.png',
 ];
+
 void finish(BuildContext context, [Object? result]) {
   if (Navigator.canPop(context)) Navigator.pop(context, result);
 }
