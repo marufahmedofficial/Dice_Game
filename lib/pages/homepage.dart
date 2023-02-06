@@ -24,7 +24,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Dice Game'),),
+      appBar: AppBar(
+        title: const Text('Dice Game', style: TextStyle(
+          color: Colors.pink,fontWeight: FontWeight.bold,fontSize: 22
+        ),),
+      centerTitle: true,
+        backgroundColor: Colors.white,
+      ),
       body: Center(
         child: hasGameStarted ? gameBody() : startBody(),
       ),
@@ -71,8 +77,8 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const FlutterLogo(size: 100,),
-          const Text('Welcome to Dice Game', style: TextStyle(fontSize: 25),),
+           Image(image: AssetImage('images/dice_logo.png',)),
+           Text('Welcome to Dice Game', style: TextStyle(fontSize: 25),),
           ElevatedButton(
             onPressed: () {
               setState(() {
@@ -164,7 +170,6 @@ final diceList=[
   'images/d5.png',
   'images/d6.png',
 ];
-
 void finish(BuildContext context, [Object? result]) {
   if (Navigator.canPop(context)) Navigator.pop(context, result);
 }
