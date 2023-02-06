@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
           context: context,
           builder: (context) {
             return CupertinoActionSheet(
-              title: Text('Do you really want to Exit?',
+              title: const Text('Do you really want to Exit?',
                   style: TextStyle(fontSize: 18, color: CupertinoColors.black)),
               // message: Text('It\'s a demo for cupertino action sheet.'),
               actions: [
@@ -79,20 +79,20 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image(
+          const Image(
               image: AssetImage(
                 'images/dice_logo.jpg',
               ),
               height: 200,
               width: 200 ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
-          Text(
+          const  Text(
             'Welcome to Dice Game',
             style: TextStyle(fontSize: 25,fontWeight: FontWeight.w500),
           ),
-          SizedBox(
+          const  SizedBox(
             height: 70,
           ),
           ElevatedButton(
